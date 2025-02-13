@@ -1,36 +1,25 @@
-import express, { Application, Request, Response } from "express";
-import cors from "cors";
+import { Request, Response } from "express";
 import dotenv from "dotenv";
-import router from "./routes/routes";
+import productRoutes from "./routes/productRoutes";
+import app from "./utils/app";
+import { connectDB } from "./utils/mongo";
+import categoryRoutes from "./routes/categoryRoutes";
 
 dotenv.config();
-
-const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.json());
-app.use(cors());
-
 // Routes
-app.use("/api", router);
-app.get("/data/:id/:asdasdasdasd", (req: Request, res: Response) => {
-    res.send(req.params.asdasdasdasd)
-})
-
 app.get("/", (req: Request, res: Response) => {
     res.send(`Hello, TypeScript + Express!: ${req.baseUrl}`);
-    res.sendStatus(200)
 });
-
-app.post("/", (req: Request, res: Response) => {
-    const newData = req.body
-    console.log(newData)
-    res.send(newData)
-})
+app.use("/product", productRoutes)
+app.use("/category", categoryRoutes)
 
 
+// Connecting DataBase 
+connectDB()
 
+// Initializing Server
 app.listen(PORT, () => {
-    console.log(`Server is running on on http://localhost:${PORT}`);
+    console.log(`✅ Server is listening on http://localhost:${PORT}`);
 });
