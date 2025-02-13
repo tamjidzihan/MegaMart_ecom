@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const { Schema } = mongoose
 const productsCategoriesSchema = new Schema({
     title: {
@@ -8,6 +7,10 @@ const productsCategoriesSchema = new Schema({
         required: true
     },
     slug: {
+        type: String,
+        required: true
+    },
+    icon: {
         type: String,
         required: true
     }

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 let isConnected = false;
+const date = new Date
 const MONGO_URI = process.env.MONGO_URI;
 const MONGO_OPTIONS: ConnectOptions = {};
 
@@ -14,7 +15,7 @@ export const connectDB = async () => {
         const connection: Connection = db.connection;
 
         isConnected = connection.readyState === 1;
-        if (isConnected) console.log('✅ MongoDB connected');
+        if (isConnected) console.log(`✅ MongoDB connected at ${date.toLocaleTimeString()}`);
 
         connection.on('connected', () => console.log('✅ MongoDB connected'))
         connection.on('disconnected', () => console.log('❌ MongoDB disconnected'))
