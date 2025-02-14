@@ -6,13 +6,15 @@ const app: Application = express();
 
 // Middleware
 app.use(morgan("tiny"));
-app.use(cors({ origin: '*' }));
+app.use(cors({
+    origin: '*'
+}));
 app.use(express.json());// body parser
 app.use(express.urlencoded({ extended: false })) // url parser
 
 
 // error handling
-app.use((err, req: Request, res: Response, next: NextFunction) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.error(err)
     res.status(500).send()
     next()
