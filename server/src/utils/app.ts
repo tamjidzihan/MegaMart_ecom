@@ -6,7 +6,7 @@ const app: Application = express();
 
 // Middleware
 app.use(morgan("tiny"));
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(express.json());// body parser
 app.use(express.urlencoded({ extended: false })) // url parser
 

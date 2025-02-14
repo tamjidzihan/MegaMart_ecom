@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
-import productRoutes from "./routes/productRoutes";
 import app from "./utils/app";
 import { connectDB } from "./utils/connectDB";
+import productRoutes from "./routes/productRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
+import userRouter from "./routes/userRouter";
+import addressRouter from "./routes/addressRouter";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +16,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 app.use("/product", productRoutes)
 app.use("/category", categoryRoutes)
+app.use("/user", userRouter)
+app.use("/address", addressRouter)
 
 
 // Connecting DataBase 
