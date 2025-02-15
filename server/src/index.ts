@@ -14,10 +14,10 @@ const PORT = process.env.PORT || 3000;
 app.get("/", (req: Request, res: Response) => {
     res.json({ "message": "Welcome to MegaMart API" });
 });
-app.use("/product", productRoutes)
-app.use("/category", categoryRoutes)
-app.use("/user", userRouter)
-app.use("/address", addressRouter)
+// app.use("/user", userRouter)
+// app.use("/product", productRoutes)
+// app.use("/category", categoryRoutes)
+// app.use("/address", addressRouter)
 
 
 // Connecting DataBase 

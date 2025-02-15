@@ -1,4 +1,4 @@
-import mongoose, { Connection, ConnectOptions } from "mongoose"
+import mongoose, { Connection, ConnectOptions, Error } from "mongoose"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -19,12 +19,12 @@ export const connectDB = async () => {
 
         connection.on('connected', () => console.log('✅ MongoDB connected'))
         connection.on('disconnected', () => console.log('❌ MongoDB disconnected'))
-        connection.on('error', (error) => console.log('❌ MongoDB connection error', error))
+        connection.on('error', (error: Error) => console.log('❌ MongoDB connection error', error))
     } catch (error: unknown) {
         if (error instanceof Error) {
             console.log('❌ MongoDB connection error:', error.message);
         } else {
-            console.log('❌ Unknown MongoDB connection error');
+            console.log('❌ Unknown MongoDB connection error',);
         }
     }
 }
