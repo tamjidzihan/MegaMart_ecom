@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteUserById, getUser } from "../services/userService";
+import { deleteUserById, getUser, getUserByEmail, getUserById, updateUserById } from "../services/userService";
 
 export const getAllUsers = async (req: express.Request, res: express.Response) => {
     try {
@@ -28,7 +28,21 @@ export const updateUser = async (req: express.Request, res: express.Response) =>
     try {
         const { id } = req.params
         const { firstName, lastName, email, role, addressIds } = req.body
+        if (!firstName || !lastName || !email || !role) {
+            res.status(400).json({ message: "Please fill out all the required fields" });
+            return
+        }
+        // const existingUser = await getUserByEmail(email)
+        const user = await getUserById(id)
 
+        user.firstName = firstName
+        user.lastName = lastName
+        user.email = email
+        user.role = role
+        user.addressIds = addressIds
+
+        user.save()
+        res.status(200).json(user).end()
 
     } catch (error) {
         console.log(error)

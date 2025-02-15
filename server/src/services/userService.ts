@@ -8,5 +8,5 @@ export const getUserById = (id: string) => UserModel.findById(id);
 export const getUserBySessionTocken = (sessionTocken: string) => UserModel.findOne({ 'authentication.sessionTocken': sessionTocken });
 export const getUserByRole = (role: number) => UserModel.findOne({ role });
 export const createUser = (valuse: Record<string, any>) => new UserModel(valuse).save().then((user) => user.toObject());
-export const deleteUserById = (id: string) => UserModel.findByIdAndDelete({ _id: id });
 export const updateUserById = (id: string, valuse: Record<string, any>) => UserModel.findByIdAndUpdate(id, valuse);
+export const deleteUserById = (id: string) => UserModel.findByIdAndDelete({ _id: id });
