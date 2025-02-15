@@ -6,6 +6,7 @@ import productRoutes from "./routes/productRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 import userRouter from "./routes/userRouter";
 import addressRouter from "./routes/addressRouter";
+import router from "./router";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,8 @@ const PORT = process.env.PORT || 3000;
 app.get("/", (req: Request, res: Response) => {
     res.json({ "message": "Welcome to MegaMart API" });
 });
+app.use('/', router())
+
 // app.use("/user", userRouter)
 // app.use("/product", productRoutes)
 // app.use("/category", categoryRoutes)

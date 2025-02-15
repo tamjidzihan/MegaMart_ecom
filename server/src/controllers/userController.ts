@@ -1,12 +1,37 @@
-import { UserModel } from "../db/UserModel";
+import express from "express";
+import { deleteUserById, getUser } from "../services/userService";
 
-export const getUser = () => UserModel.find();
-export const getUserByEmail = (email: string) => UserModel.findOne({ email });
-export const getUserByFirstName = (firstName: string) => UserModel.findOne({ firstName });
-export const getUserByLastName = (lastName: string) => UserModel.findOne({ lastName });
-export const getUserById = (id: string) => UserModel.findById(id);
-export const getUserBySessionTocken = (sessionTocken: string) => UserModel.find({ 'authentication.sessionTocken': sessionTocken });
-export const getUserByRole = (role: number) => UserModel.findOne({ role });
-export const createUser = (valuse: Record<string, any>) => new UserModel(valuse).save().then((user) => user.toObject());
-export const deleteUserById = (id: string) => UserModel.findByIdAndDelete({ _id: id });
-export const updateUserById = (id: string, valuse: Record<string, any>) => UserModel.findByIdAndUpdate(id, valuse);
+export const getAllUsers = async (req: express.Request, res: express.Response) => {
+    try {
+        const users = await getUser()
+        res.status(200).json(users)
+
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400)
+    }
+}
+
+
+export const deleteUser = async (req: express.Request, res: express.Response) => {
+    try {
+        const { id } = req.params
+        const deletedUser = await deleteUserById(id)
+        res.status(202).json(deletedUser)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400)
+    }
+}
+
+export const updateUser = async (req: express.Request, res: express.Response) => {
+    try {
+        const { id } = req.params
+        const { firstName, lastName, email, role, addressIds } = req.body
+
+
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400)
+    }
+}

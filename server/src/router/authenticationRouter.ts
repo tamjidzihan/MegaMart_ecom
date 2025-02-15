@@ -1,6 +1,7 @@
-import exporess from "express";
-import { register } from "../controllers/authenticationController";
+import express from "express";
+import { login, register } from "../controllers/authenticationController";
 
-export default (router: exporess.Router) => {
-    router.post('/register', register)
+export default (router: express.Router) => {
+    router.post('/auth/register', register)
+    router.post('/auth/login', login)
 }

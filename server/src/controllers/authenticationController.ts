@@ -1,17 +1,59 @@
 import express from "express";
-import { createUser, getUserByEmail } from "./userController";
 import { authentication, random } from "../helpers";
+import dotenv from "dotenv"
+import { createUser, getUserByEmail } from "../services/userService";
+
+dotenv.config()
+
+
+export const login = async (req: express.Request, res: express.Response) => {
+    try {
+        const { email, password } = req.body
+        const SESSION_COOKIE_NAME = process.env.SESSION_COOKIE_NAME
+        const DOMAIN_NAME = process.env.DOMAIN_NAME
+
+        if (!email || !password) {
+            res.status(400).json({ message: "Please fill out all the required fields" });
+            return
+        }
+
+        const user = await getUserByEmail(email).select('+authentication.salt +authentication.password')
+        if (!user) {
+            res.status(400).json({ message: "User Not found" });
+            return
+        }
+
+        const expectedHash = authentication(user.authentication.salt, password)
+        if (user.authentication.password !== expectedHash) {
+            res.status(403).json({ message: "Wrong Password" });
+            return
+        }
+
+        const salt = random()
+        user.authentication.sessionTocken = authentication(salt, user._id.toString())
+        await user.save()
+
+        res.cookie(SESSION_COOKIE_NAME, user.authentication.sessionTocken, { domain: DOMAIN_NAME, path: '/' })
+        res.status(200).json(user).end()
+
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400)
+    }
+}
 
 export const register = async (req: express.Request, res: express.Response) => {
     try {
         const { firstName, lastName, email, password, role } = req.body
         if (!firstName || !lastName || !email || !password || !role) {
-            return res.sendStatus(400)
+            res.status(400).json({ message: "Please fill out all the required fields" });
+            return
         }
         const existingUser = await getUserByEmail(email)
 
         if (existingUser) {
-            return res.sendStatus(400).send("Email Alrady Exist")
+            res.status(400).json({ message: "Email already exists" });
+            return
         }
 
         const salt = random();
@@ -22,10 +64,11 @@ export const register = async (req: express.Request, res: express.Response) => {
             authentication: {
                 salt,
                 password: authentication(salt, password)
-            }
+            },
+            role
         });
 
-        return res.status(200).json(user).end()
+        res.status(200).json(user).end()
 
     } catch (error) {
         console.log(error)

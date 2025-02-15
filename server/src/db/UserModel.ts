@@ -5,11 +5,11 @@ const UserSchema = new mongoose.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     authentication: {
-        password: { type: String, requried: true, select: false },
+        password: { type: String, required: true, select: false },
         salt: { type: String, select: false },
         sessionTocken: { type: String, select: false }
     },
-    role: { type: Number },
+    role: { type: Number, required: true },
     addressIds: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address',
