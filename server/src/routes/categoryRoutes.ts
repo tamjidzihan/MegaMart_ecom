@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ProductsCategories } from "../models/CategoryModel";
+import { ProductsCategories } from "../db/CategoryModel";
 
 const categoryRoutes = Router()
 

@@ -1,7 +1,7 @@
 import express from "express";
 import { merge, get } from "lodash"
 import dotenv from "dotenv"
-import { getUserById, getUserBySessionTocken } from "../services/userService";
+import { getUserBySessionTocken } from "../services/userService";
 
 dotenv.config()
 
@@ -11,14 +11,14 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
 
         const sessionToken = req.cookies[SESSION_COOKIE_NAME];
         if (!sessionToken) {
-            res.sendStatus(403)
+            res.status(403).json({ "message": "Bad Request" })
             return
         }
 
         const existingUser = await getUserBySessionTocken(sessionToken)
 
         if (!existingUser) {
-            res.sendStatus(403)
+            res.status(403).json({ "message": "No user" })
             return
         }
         merge(req, { identity: existingUser });
@@ -35,6 +35,7 @@ export const isOwner = async (req: express.Request, res: express.Response, next:
     try {
         const { id } = req.params
         const currentUserId = get(req, 'identity._id') as string
+
 
         if (!currentUserId) {
             res.sendStatus(403)
@@ -53,3 +54,28 @@ export const isOwner = async (req: express.Request, res: express.Response, next:
         res.sendStatus(400)
     }
 }
+
+
+export const isAdmin = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    try {
+        const currentUserRole = get(req, 'identity.role') as number
+
+        if (currentUserRole < 1) {
+            res.status(403).json({ "message": "Permission Denied" })
+            return
+        }
+
+        next()
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400)
+    }
+}
+
+
+
+
+
+
+
+

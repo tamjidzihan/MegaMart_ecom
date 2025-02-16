@@ -1,16 +1,25 @@
-{
-    "title": "Banana",
-    "slug": "banana",
-    "product_description": "this is sweet banan",
-    "category_id": "67adb99505e59a81cd477d05",
-    "original_price": 20,
-    "sale_price": 15,
-    "product_gallery": [
-        "image1.jpg",
-        "image2.jpg",
-        "image3.jpg",
-        "image4.jpg",
-        "image4.jpg"
-    ],
-    "quantity": 6
-}
+[
+    {
+        "title": "Banana",
+        "slug": "banana",
+        "product_description": "this is sweet banan",
+        "category_id": "67adb99505e59a81cd477d05",
+        "original_price": 20,
+        "sale_price": 15,
+        "product_gallery": [
+            "image1.jpg",
+            "image2.jpg",
+            "image3.jpg",
+            "image4.jpg",
+            "image4.jpg"
+        ],
+        "quantity": 6
+    },
+    {
+        "_id": "67b18272a6a3c3828520293e",
+        "title": "Fashion Items",
+        "slug": "fashion-items",
+        "icon": "👗",
+        "__v": 0
+    }
+]

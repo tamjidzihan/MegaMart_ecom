@@ -8,4 +8,3 @@ export const authentication = (salt: string, password: string) => {
         "sha256", [salt, password].join('/')
     ).update(SECRET).digest('hex')
 };
-
