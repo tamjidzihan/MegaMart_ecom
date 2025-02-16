@@ -19,4 +19,4 @@ const productSchema = new Schema({
     dateCreated: { type: Date }
 })
 
-export const Product = mongoose.model('Product', productSchema)
+export const ProductModel = mongoose.model('Product', productSchema)
