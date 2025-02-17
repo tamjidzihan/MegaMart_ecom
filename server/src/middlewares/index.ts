@@ -18,7 +18,7 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
         const existingUser = await getUserBySessionTocken(sessionToken)
 
         if (!existingUser) {
-            res.status(403).json({ "message": "No user" })
+            res.status(403).json({ "message": "No credentials" })
             return
         }
         merge(req, { identity: existingUser });
@@ -35,7 +35,6 @@ export const isOwner = async (req: express.Request, res: express.Response, next:
     try {
         const { id } = req.params
         const currentUserId = get(req, 'identity._id') as string
-
 
         if (!currentUserId) {
             res.sendStatus(403)
@@ -60,7 +59,7 @@ export const isAdmin = async (req: express.Request, res: express.Response, next:
     try {
         const currentUserRole = get(req, 'identity.role') as number
 
-        if (currentUserRole < 1) {
+        if (currentUserRole <= 1) {
             res.status(403).json({ "message": "Permission Denied" })
             return
         }
