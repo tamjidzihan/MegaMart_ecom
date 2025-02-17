@@ -19,7 +19,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
         const user = await getUserByEmail(email).select('+authentication.salt +authentication.password')
         if (!user) {
-            res.status(400).json({ message: "User Not found" });
+            res.status(404).json({ message: "User Not found" });
             return
         }
 
@@ -30,15 +30,17 @@ export const login = async (req: express.Request, res: express.Response) => {
         }
 
         const salt = random()
-        user.authentication.sessionTocken = authentication(salt, user._id.toString())
+        user.authentication.sessionToken = authentication(salt, user._id.toString())
         await user.save()
 
-        res.cookie(SESSION_COOKIE_NAME, user.authentication.sessionTocken, { domain: DOMAIN_NAME, path: '/' })
-        res.status(200).json(user).end()
-
+        res.cookie(SESSION_COOKIE_NAME, user.authentication.sessionToken, {
+            domain: DOMAIN_NAME,
+            path: '/'
+        })
+        res.status(200).json({ message: "Login successful", user });
     } catch (error) {
-        console.log(error)
-        res.sendStatus(400)
+        console.error("Login Error:", error);
+        res.status(500).json({ message: "Internal Server Error." });
     }
 }
 

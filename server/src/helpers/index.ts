@@ -1,6 +1,9 @@
 import crypto from "crypto";
+import dotenv from "dotenv";
 
-const SECRET = "MEGA-MART-ECOM"
+dotenv.config();
+
+const SECRET = process.env.AUTH_SECRET || "MEGA-MART-ECOM";
 
 export const random = () => crypto.randomBytes(128).toString('base64');
 export const authentication = (salt: string, password: string) => {

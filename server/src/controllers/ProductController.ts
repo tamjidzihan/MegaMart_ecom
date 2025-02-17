@@ -1,5 +1,6 @@
 import express from "express";
 import { createProduct, deleteProductById, findProductById, findProductBySlug, getProducts } from "../services/productService";
+import { findCategoryById } from "../services/categoryService";
 
 export const getAllProducts = async (req: express.Request, res: express.Response) => {
     try {
@@ -24,10 +25,16 @@ export const getProductsById = async (req: express.Request, res: express.Respons
 
 export const createNewProduct = async (req: express.Request, res: express.Response) => {
     try {
-        const { title, slug, description, categoryId, originalPrice, salePrice, productGallery, countInStock, isFeatured, dateCreated } = req.body
+        const { title, slug, description, categoryId, originalPrice, salePrice, rating, productGallery, countInStock, isFeatured, dateCreated } = req.body
 
         if (!title || !slug || !description || !categoryId || !salePrice || !productGallery) {
             res.send(400).json({ message: "Please fill out all the required fields" });
+        }
+
+        const existingCategory = await findCategoryById(categoryId)
+        if (!existingCategory) {
+            res.status(400).json({ message: "Invalid Category" });
+            return
         }
 
         const existingProduct = await findProductBySlug(slug)
@@ -43,6 +50,7 @@ export const createNewProduct = async (req: express.Request, res: express.Respon
             categoryId,
             originalPrice,
             salePrice,
+            rating,
             productGallery,
             countInStock,
             isFeatured,
@@ -61,7 +69,7 @@ export const createNewProduct = async (req: express.Request, res: express.Respon
 export const updateProduct = async (req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params
-        const { title, slug, description, categoryId, originalPrice, salePrice, productGallery, countInStock, isFeatured, dateCreated } = req.body
+        const { title, slug, description, categoryId, originalPrice, salePrice, rating, productGallery, countInStock, isFeatured, dateCreated } = req.body
 
         if (!title || !slug || !description || !categoryId || !salePrice || !productGallery) {
             res.send(400).json({ message: "Please fill out all the required fields" });
@@ -74,6 +82,7 @@ export const updateProduct = async (req: express.Request, res: express.Response)
         product.description = description
         product.originalPrice = originalPrice
         product.salePrice = salePrice
+        product.rating = rating
         product.countInStock = countInStock
         product.isFeatured = isFeatured
         product.dateCreated = dateCreated

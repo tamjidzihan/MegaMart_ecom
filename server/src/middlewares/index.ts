@@ -1,7 +1,7 @@
 import express from "express";
 import { merge, get } from "lodash"
 import dotenv from "dotenv"
-import { getUserBySessionTocken } from "../services/userService";
+import { getUserBySessionToken } from "../services/userService";
 
 dotenv.config()
 
@@ -11,14 +11,14 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
 
         const sessionToken = req.cookies[SESSION_COOKIE_NAME];
         if (!sessionToken) {
-            res.status(403).json({ "message": "Bad Request" })
+            res.status(403).json({ message: "Bad Request" })
             return
         }
 
-        const existingUser = await getUserBySessionTocken(sessionToken)
+        const existingUser = await getUserBySessionToken(sessionToken)
 
         if (!existingUser) {
-            res.status(403).json({ "message": "No credentials" })
+            res.status(403).json({ message: "No credentials" })
             return
         }
         merge(req, { identity: existingUser });

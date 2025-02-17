@@ -11,6 +11,7 @@ const productSchema = new mongoose.Schema({
     },
     originalPrice: { type: Number },
     salePrice: { type: Number, required: true },
+    rating: { type: Number },
     productGallery: { type: Array, required: true },
     countInStock: { type: Number },
     isFeatured: { type: Boolean },
