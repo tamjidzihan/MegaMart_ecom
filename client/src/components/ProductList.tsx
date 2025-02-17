@@ -29,7 +29,9 @@ const ProductList = () => {
     return (
         <div className="container mx-auto p-6">
             <h2 className="text-2xl font-bold mb-4">Product List</h2>
-            <Link to="/add-product" className="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Add Product</Link>
+            <Link to="/add-product" className="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
+                + Add Product
+            </Link>
             <table className="w-full border-collapse border border-gray-200">
                 <thead>
                     <tr className="bg-gray-100">

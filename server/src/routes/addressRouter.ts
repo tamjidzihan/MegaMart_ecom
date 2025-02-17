@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Address } from '../models/AddressModel';
+import { Address } from '../db/AddressModel';
 import { User } from '../db/UserModel';
 
 const addressRouter = Router()
