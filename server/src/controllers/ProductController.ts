@@ -62,6 +62,32 @@ export const updateProduct = async (req: express.Request, res: express.Response)
     try {
         const { id } = req.params
         const { title, slug, description, categoryId, originalPrice, salePrice, productGallery, countInStock, isFeatured, dateCreated } = req.body
+
+        if (!title || !slug || !description || !categoryId || !salePrice || !productGallery) {
+            res.send(400).json({ message: "Please fill out all the required fields" });
+        }
+
+        const product = await findProductById(id)
+
+        product.title = title
+        product.slug = slug
+        product.description = description
+        product.originalPrice = originalPrice
+        product.salePrice = salePrice
+        product.countInStock = countInStock
+        product.isFeatured = isFeatured
+        product.dateCreated = dateCreated
+
+        if (Array.isArray(productGallery)) {
+            product.productGallery = productGallery;
+        } else {
+            res.status(400).json({ message: "productGallery must be an array" });
+            return
+        }
+
+        product.save()
+        res.status(200).json(product).end()
+
     } catch (error) {
         console.log(error)
         res.sendStatus(400)
