@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const products = [
     {
@@ -64,7 +65,7 @@ const FlashSales = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {products.map((product) => (
-                    <div key={product.id} className="bg-white rounded-lg p-4">
+                    <Link to={'/productdetail'} key={product.id} className="bg-white rounded-lg p-4">
                         <div className="relative">
                             <img
                                 src={product.image}
@@ -91,7 +92,7 @@ const FlashSales = () => {
                             <span className="text-sm text-gray-500">({product.reviews ?? 0})</span> {/* Default to 0 */}
                         </div>
 
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

@@ -31,7 +31,13 @@ const products = [
 const BestSelling = () => {
     return (
         <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">Best Selling Products</h2>
+            <div className="mb-8">
+                <div className="flex items-center space-x-2 mb-2 ">
+                    <div className="w-5 h-10 bg-red-500 rounded-sm" />
+                    <h3 className="text-red-500 font-medium">This Month</h3>
+                </div>
+                <h2 className="text-3xl font-semibold">Best Selling Products</h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {products.map((product) => (
                     <div key={product.id} className="bg-white rounded-lg shadow-md p-4">

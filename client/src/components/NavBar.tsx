@@ -1,4 +1,5 @@
 import { Search, ShoppingCart, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 const Navbar = () => {
     return (
         <nav className=" bg-white border-b border-gray-300 sticky top-0 z-50">
@@ -15,9 +16,9 @@ const Navbar = () => {
                         <a href="#" className="hover:text-blue-600">
                             About
                         </a>
-                        <a href="#" className="hover:text-blue-600">
+                        <Link to={'/signup'} className="hover:text-blue-600">
                             Sign Up
-                        </a>
+                        </Link>
                     </div>
                     <div className="flex items-center space-x-6">
                         <div className="relative">
