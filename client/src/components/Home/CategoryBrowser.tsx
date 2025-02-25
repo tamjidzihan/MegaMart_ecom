@@ -1,39 +1,41 @@
 
-import {
-    Phone,
-    Monitor,
-    Watch,
-    Camera,
-    Headphones,
-    Gamepad,
-} from "lucide-react";
-const categories = [
-    {
-        name: "Phones",
-        icon: <Phone size={32} />,
-    },
-    {
-        name: "Computers",
-        icon: <Monitor size={32} />,
-    },
-    {
-        name: "SmartWatch",
-        icon: <Watch size={32} />,
-    },
-    {
-        name: "Camera",
-        icon: <Camera size={32} />,
-    },
-    {
-        name: "HeadPhones",
-        icon: <Headphones size={32} />,
-    },
-    {
-        name: "Gaming",
-        icon: <Gamepad size={32} />,
-    },
-];
+// import {
+//     Phone,
+//     Monitor,
+//     Watch,
+//     Camera,
+//     Headphones,
+//     Gamepad,
+// } from "lucide-react";
+import useCategory from "../../hooks/useCategory";
+// const categories = [
+//     {
+//         name: "Phones",
+//         icon: <Phone size={32} />,
+//     },
+//     {
+//         name: "Computers",
+//         icon: <Monitor size={32} />,
+//     },
+//     {
+//         name: "SmartWatch",
+//         icon: <Watch size={32} />,
+//     },
+//     {
+//         name: "Camera",
+//         icon: <Camera size={32} />,
+//     },
+//     {
+//         name: "HeadPhones",
+//         icon: <Headphones size={32} />,
+//     },
+//     {
+//         name: "Gaming",
+//         icon: <Gamepad size={32} />,
+//     },
+// ];
 const CategoryBrowser = () => {
+    const { categories } = useCategory()
     return (
         <div className="mt-16">
             <div className="mb-8">
@@ -49,8 +51,8 @@ const CategoryBrowser = () => {
                         key={index}
                         className="flex flex-col items-center justify-center p-8 border border-gray-200 rounded-lg hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
                     >
-                        <div className="mb-4">{category.icon}</div>
-                        <span className="text-sm font-medium">{category.name}</span>
+                        <div className="mb-4 text-6xl">{category.icon}</div>
+                        <span className="text-sm font-medium">{category.title}</span>
                     </button>
                 ))}
             </div>
