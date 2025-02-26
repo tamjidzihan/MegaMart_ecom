@@ -28,7 +28,7 @@ export const createNewProduct = async (req: express.Request, res: express.Respon
         const { title, slug, description, categoryId, originalPrice, salePrice, rating, productGallery, countInStock, isFeatured, dateCreated } = req.body
 
         if (!title || !slug || !description || !categoryId || !salePrice || !productGallery) {
-            res.send(400).json({ message: "Please fill out all the required fields" });
+            res.status(400).json({ message: "Please fill out all the required fields" });
         }
 
         const existingCategory = await findCategoryById(categoryId)

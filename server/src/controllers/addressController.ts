@@ -21,6 +21,7 @@ export const getAddressById = async (req: express.Request, res: express.Response
         console.log("Address ID: " + id)
 
         const address = await findAddressById(id)
+        console.log(`Address is : ${address.toJSON}`)
         res.status(200).json(address)
 
     } catch (error) {

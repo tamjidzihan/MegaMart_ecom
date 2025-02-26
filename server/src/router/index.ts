@@ -4,6 +4,7 @@ import userRouter from "./userRouter";
 import categoryRouter from "./categoryRouter";
 import productRouter from "./productRouter";
 import addressRouter from "./addressRouter";
+import flashSalesRouter from "./flashSalesRouter";
 
 const router = express.Router()
 export default (): express.Router => {
@@ -12,5 +13,6 @@ export default (): express.Router => {
     categoryRouter(router)
     productRouter(router)
     addressRouter(router)
+    flashSalesRouter(router)
     return router
 }

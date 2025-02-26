@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import dotenv from "dotenv";
 import app from "./utils/app";
 import { connectDB } from "./utils/connectDB";
-import addressRouter from "./routes/addressRouter";
 import router from "./router";
 
 dotenv.config();
