@@ -96,6 +96,4 @@ export const updateAddress = async (req: express.Request, res: express.Response)
         console.log(error)
         res.sendStatus(400)
     }
-
-
 }
